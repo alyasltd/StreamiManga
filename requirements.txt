@@ -1,0 +1,17 @@
+diffusers
+io
+numpy==1.24.0
+time
+torch==2.0.1
+streamlit
+random
+plotly.graph_objects
+pyspark.ml.linalg
+pyspark.sql
+requests==2.31.0
+sklearn.preprocessing
+pyspark.ml.feature
+PIL
+pandas==1.5.3
+plotly.express
+os
