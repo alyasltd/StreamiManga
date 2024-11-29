@@ -10,5 +10,4 @@ plotly==5.24.1
 pillow==10.4.0 
 scikit-learn==1.5.2
 pyspark==3.5.3
-huggingface-hub==0.26.2 
-default-jre-headless
+huggingface-hub==0.26.2
