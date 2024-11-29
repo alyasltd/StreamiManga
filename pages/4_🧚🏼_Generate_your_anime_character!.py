@@ -3,8 +3,9 @@ import torch
 from diffusers import StableDiffusionXLPipeline, EulerAncestralDiscreteScheduler
 from PIL import Image
 import os
-from huggingface_hub import login
-login()
+
+# Set the environment variable
+os.environ["HUGGINGFACE_HUB_TOKEN"] = st.secrets["HUGGINGFACE_TOKEN"]
 
 st.set_page_config(page_title="Generate Your Anime Character !", page_icon="🧚🏼", layout="wide")
 
@@ -27,6 +28,7 @@ def load_model():
     
     pipe = StableDiffusionXLPipeline.from_pretrained(
         base_model,
+        use_auth_token=st.secrets["HUGGINGFACE_TOKEN"],
         torch_dtype=torch.float16 if device == "cuda" else torch.float32,
         use_safetensors=True,
         variant="fp16"
