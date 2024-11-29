@@ -25,11 +25,11 @@ In this interactive quiz, you'll test your knowledge of popular anime characters
 Are you ready to show off your anime knowledge and have some fun? Let’s start! 🤓✨
 """)
 
-logo_path = "StreamiManga/images/streami.png"
+logo_path = "images/streami.png"
 st.sidebar.image(logo_path, use_column_width=True)
 
 # Load the CSV file of characters
-data = pd.read_csv("StreamiManga/data/character/anime_planet_characters.csv")
+data = pd.read_csv("data/character/anime_planet_characters.csv")
 
 # Function to blur the image from a URL
 def blur_image(url):
