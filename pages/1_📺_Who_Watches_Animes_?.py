@@ -11,7 +11,7 @@ st.sidebar.header("Who Are Anime Fans? 🤔")
 # Cache for loading the logo
 @st.cache_resource
 def load_logo():
-    return "StreamiManga/images/streami.png"
+    return "images/streami.png"
 
 logo_path = load_logo()
 st.sidebar.image(logo_path, use_column_width=True)
@@ -19,10 +19,10 @@ st.sidebar.image(logo_path, use_column_width=True)
 # Cache for loading datasets
 @st.cache_data
 def load_data():
-    anime_data_path = 'StreamiManga/data/anime/anime-dataset-2023.csv'
-    user_details_path = 'StreamiManga/data/user/users-details-2023.csv'
-    user_scores_path = 'StreamiManga/data/user/user_scores_filtered.csv'
-    anime_filtered_path = 'StreamiManga/data/anime/anime-filtered.csv'
+    anime_data_path = 'data/anime/anime-dataset-2023.csv'
+    user_details_path = 'data/user/users-details-2023.csv'
+    user_scores_path = 'data/user/user_scores_filtered.csv'
+    anime_filtered_path = 'data/anime/anime-filtered.csv'
 
     anime_df = pd.read_csv(anime_data_path)
     user_details_df = pd.read_csv(user_details_path)

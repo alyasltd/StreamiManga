@@ -8,7 +8,7 @@ st.set_page_config(
     page_icon="👋",
     layout="wide"
 )
-img_path = "StreamiManga/images/welcome.png" 
+img_path = "images/welcome.png" 
 # Display the image at the top of the page
 st.image(img_path, use_column_width=True)
 
@@ -49,7 +49,7 @@ else:
     """)
 
 #st.sidebar.title("✨ Welcome to the StreamiManga App! 🎥🌟")
-logo_path = "StreamiManga/images/streami.png"  
+logo_path = "images/streami.png"  
 # Display the logo image in the sidebar
 st.sidebar.image(logo_path, use_column_width=True)
 
