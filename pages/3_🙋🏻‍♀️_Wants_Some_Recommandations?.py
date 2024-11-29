@@ -30,7 +30,7 @@ Welcome to the **Anime Recommendation Page**! 🎉 Here, we use advanced data an
 ### Ready to discover your next favorite anime? Select an anime from the dropdown and see the magic unfold! ✨
 """)
 
-logo_path = "./../images/streami.png"  
+logo_path = "StreamiManga/images/streami.png"  
 # Display the logo image in the sidebar
 st.sidebar.image(logo_path, use_column_width=True)
 
@@ -38,7 +38,7 @@ st.sidebar.image(logo_path, use_column_width=True)
 spark = SparkSession.builder.appName("AnimeRecommendation").getOrCreate()
 
 # Load the anime dataset
-anime_info_df = pd.read_csv("./../data/anime/anime-dataset-2023.csv")
+anime_info_df = pd.read_csv("StreamiManga/data/anime/anime-dataset-2023.csv")
 
 # Save the 'Image URL' column before dropping it
 image_url_df = anime_info_df[['anime_id', 'Image URL']]
