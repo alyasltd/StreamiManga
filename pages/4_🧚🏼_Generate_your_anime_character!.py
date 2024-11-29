@@ -3,6 +3,8 @@ import torch
 from diffusers import StableDiffusionXLPipeline, EulerAncestralDiscreteScheduler
 from PIL import Image
 import os
+from huggingface_hub import login
+login()
 
 st.set_page_config(page_title="Generate Your Anime Character !", page_icon="🧚🏼", layout="wide")
 
