@@ -4,9 +4,6 @@ from diffusers import DiffusionPipeline
 from PIL import Image
 import os
 
-# Set the environment variable
-os.environ["HUGGINGFACE_HUB_TOKEN"] = st.secrets["HUGGINGFACE_TOKEN"]
-
 st.set_page_config(page_title="Generate Your Anime Character !", page_icon="🧚🏼", layout="wide")
 
 st.markdown("# Generate Your Own Anime Character 自分だけのアニメキャラクターを生成する ？ 🪄")
@@ -22,10 +19,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # Load the pre-trained model (cached to improve performance)
 @st.cache_resource
 def load_model():
-    pipe = DiffusionPipeline.from_pretrained(
-        "Ojimi/anime-kawai-diffusion",
-        use_auth_token=st.secrets["HUGGINGFACE_TOKEN"]  # Authentication token from Streamlit secrets
-    )
+    pipe = DiffusionPipeline.from_pretrained("Ojimi/anime-kawai-diffusion")
     pipe = pipe.to(device)
     return pipe
 
