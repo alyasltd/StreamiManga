@@ -12,7 +12,7 @@ st.set_page_config(page_title="Generate Your Anime Character !", page_icon="🧚
 st.markdown("# Generate Your Own Anime Character 自分だけのアニメキャラクターを生成する ？ 🪄")
 st.sidebar.header("Let Your words be a reality ! 🪄")
 
-logo_path = "/images/streami.png"
+logo_path = "images/streami.png"
 # Display the logo image in the sidebar
 st.sidebar.image(logo_path, use_column_width=True)
 
