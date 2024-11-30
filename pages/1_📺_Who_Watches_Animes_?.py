@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Who Watches Animes ?", page_icon="📺", layout="wide")
 
-st.markdown("# Who Watches Animes アニメを見るのは誰 ？ 📺")
+st.markdown("# Who Watches Animes アニメを見ているのは誰？📺")
 st.sidebar.header("Who Are Anime Fans? 🤔")
 
 # Cache for loading the logo
