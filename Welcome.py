@@ -4,7 +4,7 @@ import time
 
 # Configuration de la page
 st.set_page_config(
-    page_title="この旅",
+    page_title="ようこそ",
     page_icon="👋",
     layout="wide"
 )
