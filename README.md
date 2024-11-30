@@ -69,7 +69,7 @@ Here are some examples of anime characters generated using the **StreamiManga** 
 
 <p align="center">
   <img src="images/generated_image.png" alt="Anime Character 1" width="40%">
-  <img src="images/generated_image.png" alt="Anime Character 2" width="40%">
+  <img src="images/generated_anime_character.png" alt="Anime Character 2" width="40%">
 </p>
 
 ## 🧩 Dependencies
