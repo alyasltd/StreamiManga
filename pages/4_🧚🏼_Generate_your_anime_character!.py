@@ -6,7 +6,7 @@ import os
 
 st.set_page_config(page_title="Generate Your Anime Character !", page_icon="🧚🏼", layout="wide")
 
-st.markdown("# Generate Your Own Anime Character 自分だけのアニメキャラクターを生成する ？ 🪄")
+st.markdown("# Generate Your Own Anime Character 自分だけのアニメキャラクターを作ってみよう！🪄")
 st.sidebar.header("Let Your words be a reality ! 🪄")
 
 logo_path = "images/streami.png"
