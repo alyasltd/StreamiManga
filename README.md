@@ -3,6 +3,8 @@
 Welcome to **StreamiManga**, the ultimate anime hub where data analysis meets creativity! 🚀 Whether you're here to analyze viewing trends, test your anime knowledge, discover tailored anime recommendations, or generate your dream anime character, this app has you covered. 🌟
 
 Access the app [here](https://streamimanga.streamlit.app/).
+The API used : [here]((https://jikan.moe/))
+The Kaggle DataBase : [here]((https://www.kaggle.com/datasets/dbdmobile/myanimelist-dataset/data))
 
 ## 🌟 Features
 
