@@ -146,6 +146,23 @@ with tab2:
         st.plotly_chart(fig_bar, use_container_width=True)
     with col2:
         st.plotly_chart(fig_pie, use_container_width=True)
+        
+    # Average episodes watched by gender
+    filtered_user_details_df = user_details_df[user_details_df['Gender'] != 'Non-Binary']
+    avg_episodes_by_gender = filtered_user_details_df.groupby('Gender')['Episodes Watched'].mean()
+    avg_days_watched_by_gender = filtered_user_details_df.groupby('Gender')['Days Watched'].mean()
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        show_avg_episodes = st.checkbox("Show average episodes watched by gender")
+        if show_avg_episodes:
+            st.bar_chart(avg_episodes_by_gender)
+
+    with col2:
+        show_avg_days = st.checkbox("Show average days watched by gender")
+        if show_avg_days:
+            st.bar_chart(avg_days_watched_by_gender)
 
 with tab3:
     st.subheader("Anime Selection")
