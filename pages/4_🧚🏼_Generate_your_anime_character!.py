@@ -19,7 +19,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # Load the pre-trained model (cached to improve performance)
 @st.cache_resource
 def load_model():
-    pipe = DiffusionPipeline.from_pretrained("Ojimi/anime-kawai-diffusion")
+    pipe = DiffusionPipeline.from_pretrained("Ojimi/anime-kawai-diffusion", local_files_only=True)
     pipe = pipe.to(device)
     return pipe
 
