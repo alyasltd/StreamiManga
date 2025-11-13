@@ -1,45 +1,55 @@
 import streamlit as st
-import os
-from huggingface_hub import InferenceClient
-from PIL import Image
+import requests
 import io
+from PIL import Image
 
 st.set_page_config(page_title="Generate Your Anime Character!", page_icon="🧚🏼", layout="wide")
 
 st.markdown("# Generate Your Own Anime Character 自分だけのアニメキャラクターを作ってみよう！🪄")
 st.sidebar.header("Let Your words be a reality ! 🪄")
 
-logo_path = "images/streami.png"
-st.sidebar.image(logo_path, use_column_width=True)
+# Sidebar logo
+st.sidebar.image("images/streami.png", use_column_width=True)
 
-# Load HF token safely from Streamlit secrets
-HF_TOKEN = st.secrets["HF_TOKEN"]
+# HuggingFace API Config
+HF_TOKEN = st.secrets["HF_TOKEN"]  # <-- SAFE
+API_URL = "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell"
+headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
-# Create inference client
-client = InferenceClient(
-    provider="nebius",
-    api_key=HF_TOKEN,
-)
+# Function to call HF
+def generate_image(prompt):
+    payload = {"inputs": prompt}
+    response = requests.post(API_URL, headers=headers, json=payload)
 
-MODEL_ID = "black-forest-labs/FLUX.1-schnell"
+    # Check for JSON error response
+    if response.headers.get("content-type") == "application/json":
+        return None, response.json()
 
-# Prompt inputs
-st.write("Enter a creative prompt and click 'Generate Image' to see your anime character!")
+    return response.content, None
+
+
+# Prompt input
 prompt = st.text_input(
     "Enter your anime prompt:",
-    "cute anime girl with cat ears, pastel colors, big sparkling eyes, soft shading"
+    "cute anime girl with cat ears, big sparkling eyes, pastel colors, soft glow"
 )
 
+# Generate button
 if st.button("Generate Image"):
     with st.spinner("Generating your anime character... ⏳"):
-        try:
-            # Generate image using HF Nebius API
-            image = client.text_to_image(prompt, model=MODEL_ID)
+        img_bytes, error = generate_image(prompt)
 
-            # Display image
+        if error:
+            st.error("🚨 HuggingFace API Error:")
+            st.code(error)
+        else:
+            # Convert bytes to image
+            image = Image.open(io.BytesIO(img_bytes))
+
+            # Display the image
             st.image(image, caption="Generated Anime Character", width=400)
 
-            # Download option
+            # Download button
             buf = io.BytesIO()
             image.save(buf, format="PNG")
             st.download_button(
@@ -50,6 +60,3 @@ if st.button("Generate Image"):
             )
 
             st.success("Image generation completed! ✨")
-
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
