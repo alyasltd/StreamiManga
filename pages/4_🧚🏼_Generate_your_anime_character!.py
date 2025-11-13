@@ -1,8 +1,7 @@
 import streamlit as st
-import torch
+import requests
 from PIL import Image
-from diffusers import StableDiffusionPipeline
-import os
+import io
 
 st.set_page_config(page_title="Generate Your Anime Character !", page_icon="🧚🏼", layout="wide")
 
@@ -12,46 +11,43 @@ st.sidebar.header("Let Your words be a reality ! 🪄")
 logo_path = "images/streami.png"
 st.sidebar.image(logo_path, use_column_width=True)
 
-# Choose model (tiny model to fit Streamlit Cloud)
-MODEL_ID = "lllyasviel/sd-tiny"
+# HuggingFace API
+HF_API_KEY = st.secrets["HF_API_KEY"]  # ← SAFE
+API_URL = "https://api-inference.huggingface.co/models/lllyasviel/sd-tiny"
 
-@st.cache_resource
-def load_model():
-    pipe = StableDiffusionPipeline.from_pretrained(
-        MODEL_ID,
-        torch_dtype=torch.float32
-    ).to("cpu")
-    return pipe
+headers = {"Authorization": f"Bearer {HF_API_KEY}"}
 
-# Load once
-pipe = load_model()
+def generate_image(prompt: str, negative_prompt: str = ""):
+    payload = {
+        "inputs": prompt,
+        "parameters": {
+            "negative_prompt": negative_prompt
+        }
+    }
+    response = requests.post(API_URL, headers=headers, json=payload)
+    return response.content
 
-# Prompt inputs
-st.write("Enter a creative prompt above and click 'Generate Image' to see the result!")
+# User inputs
 prompt = st.text_input("Enter your anime prompt:", "1 girl, cat ears, black hair, red eyes, cute anime style")
 negative_prompt = st.text_input("Enter negative prompt (optional):", "lowres, bad anatomy")
 
-# Button
 if st.button("Generate Image"):
     with st.spinner("Generating your anime character... ⏳"):
         try:
-            # Generate
-            result = pipe(prompt, negative_prompt=negative_prompt)
-            image = result.images[0]
+            img_bytes = generate_image(prompt, negative_prompt)
+            image = Image.open(io.BytesIO(img_bytes))
 
-            # Display
             st.image(image, caption="Generated Anime Character", width=400)
 
-            # Save + download
-            img_path = "generated_image.png"
-            image.save(img_path)
-            with open(img_path, "rb") as f:
-                st.download_button(
-                    label="Download Image",
-                    data=f,
-                    file_name="anime_character.png",
-                    mime="image/png"
-                )
+            # Download
+            buf = io.BytesIO()
+            image.save(buf, format="PNG")
+            st.download_button(
+                label="Download Image",
+                data=buf.getvalue(),
+                file_name="anime_character.png",
+                mime="image/png"
+            )
 
             st.success("Image generation completed!")
         except Exception as e:
