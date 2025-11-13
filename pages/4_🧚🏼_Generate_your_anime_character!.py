@@ -1,6 +1,6 @@
 import streamlit as st
 import torch
-from diffusers import DiffusionPipeline
+from diffusers import StableDiffusionPipeline
 from PIL import Image
 import os
 
@@ -12,6 +12,8 @@ st.sidebar.header("Let Your words be a reality ! 🪄")
 logo_path = "images/streami.png"
 # Display the logo image in the sidebar
 st.sidebar.image(logo_path, use_column_width=True)
+model_id = "Linaqruf/anything-v3.0"
+branch_name= "diffusers"
 
 # Check if CUDA is available and use it if possible
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -19,7 +21,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # Load the pre-trained model (cached to improve performance)
 @st.cache_resource
 def load_model():
-    pipe = DiffusionPipeline.from_pretrained("Ojimi/anime-kawai-diffusion", local_files_only=True)
+    pipe = StableDiffusionPipeline.from_pretrained(model_id, revision=branch_name, torch_dtype=torch.float16)
     pipe = pipe.to(device)
     return pipe
 
