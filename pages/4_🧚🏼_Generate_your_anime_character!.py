@@ -16,19 +16,6 @@ st.sidebar.image(logo_path, use_column_width=True)
 # Check if CUDA is available and use it if possible
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-# Load the pre-trained model (cached to improve performance)
-@st.cache_resource
-model_id = "lllyasviel/sd-tiny"
-
-@st.cache_resource
-def load_model():
-    pipe = StableDiffusionPipeline.from_pretrained(
-        model_id,
-        torch_dtype=torch.float32
-    ).to("cpu")
-    return pipe
-
-pipe = load_model()
 
 # Main content input field and button
 st.write("Enter a creative prompt above and click 'Generate Image' to see the result!")
