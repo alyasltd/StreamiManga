@@ -21,7 +21,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # Load the pre-trained model (cached to improve performance)
 @st.cache_resource
 def load_model():
-    pipe = StableDiffusionPipeline.from_pretrained(model_id, revision=branch_name, torch_dtype=torch.float16)
+    pipe = StableDiffusionPipeline.from_pretrained(model_id, revision=branch_name, torch_dtype=torch.float32)
     pipe = pipe.to(device)
     return pipe
 
