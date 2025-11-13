@@ -18,15 +18,14 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Load the pre-trained model (cached to improve performance)
 @st.cache_resource
+model_id = "lllyasviel/sd-tiny"
+
+@st.cache_resource
 def load_model():
-    correct_model_id = "runwayml/stable-diffusion-v1-5"
-    
     pipe = StableDiffusionPipeline.from_pretrained(
-        correct_model_id,
-        torch_dtype=torch.float32,   # CPU-compatible
-        safety_checker=None          # Optional: improves performance
-    )
-    pipe = pipe.to("cpu")           # Streamlit Cloud = no GPU
+        model_id,
+        torch_dtype=torch.float32
+    ).to("cpu")
     return pipe
 
 pipe = load_model()
