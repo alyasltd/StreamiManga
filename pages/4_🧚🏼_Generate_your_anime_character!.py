@@ -12,7 +12,6 @@ st.sidebar.header("Let Your words be a reality ! 🪄")
 logo_path = "images/streami.png"
 # Display the logo image in the sidebar
 st.sidebar.image(logo_path, use_column_width=True)
-model_id = "sd-legacy/stable-diffusion-v1-5"
 
 # Check if CUDA is available and use it if possible
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -20,8 +19,14 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # Load the pre-trained model (cached to improve performance)
 @st.cache_resource
 def load_model():
-    pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
-    pipe = pipe.to(device)
+    correct_model_id = "runwayml/stable-diffusion-v1-5"
+    
+    pipe = StableDiffusionPipeline.from_pretrained(
+        correct_model_id,
+        torch_dtype=torch.float32,   # CPU-compatible
+        safety_checker=None          # Optional: improves performance
+    )
+    pipe = pipe.to("cpu")           # Streamlit Cloud = no GPU
     return pipe
 
 pipe = load_model()
