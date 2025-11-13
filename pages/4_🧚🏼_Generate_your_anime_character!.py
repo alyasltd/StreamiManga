@@ -1,6 +1,5 @@
 import streamlit as st
 import torch
-from diffusers import StableDiffusionPipeline
 from PIL import Image
 import os
 
@@ -28,9 +27,6 @@ generate_button = st.button("Generate Image")
 if generate_button:
     with st.spinner("Generating your anime character... ⏳"):
         try:
-            # Generate the image
-            image = pipe(prompt, negative_prompt=negative_prompt).images[0]
-            
             # Display the image with limited width
             st.image(image, caption="Generated Anime Character", use_column_width=False, width=400)
             st.success("Image generation completed!")
